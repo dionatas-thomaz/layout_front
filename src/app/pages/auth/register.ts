@@ -7,11 +7,17 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
+import { CreateUserService } from '@/core/service/create-user.service';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { AppConfigurator } from '@/layout/component/app.configurator';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule],
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, MessageModule, ToastModule, AppConfigurator, IconField, InputIcon],
     template: `
         <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
             <div class="flex flex-col items-center justify-center">
@@ -23,10 +29,10 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
                         <div>
                             <label for="nome1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Nome</label>
                             <input pInputText id="nome1" type="text" placeholder="Nome" class="w-full md:w-120 mb-8" [(ngModel)]="nome" />
-
                             <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
                             <input pInputText id="email1" type="text" placeholder="Email" class="w-full md:w-120 mb-8" [(ngModel)]="email" />
-
+                            <label for="cpf1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Cpf</label>
+                            <input pInputText id="cpf1" type="text" placeholder="cpf" class="w-full md:w-120 mb-8" [(ngModel)]="cpf" />
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Senha</label>
                             <p-password id="password1" [(ngModel)]="password" placeholder="Senha" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
                             <p-button label="Cadastra" styleClass="w-full" routerLink="/"></p-button>
@@ -40,5 +46,9 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
 export class Register {
     nome: string = '';
     email: string = '';
+    cpf: string = '';
     password: string = '';
+
+    constructor( 
+    private createUserService: CreateUserService) { }
 }
