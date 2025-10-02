@@ -2,5 +2,5 @@ export interface User {
     nome: string;
     email: string;
     password: string;
-    cpf?: string;
+    cpf: string;
 }

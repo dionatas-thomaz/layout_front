@@ -16,7 +16,7 @@ import { MessageService } from 'primeng/api';
     selector: 'app-register',
     standalone: true,
     imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, MessageModule, ToastModule],
-     providers: [MessageService],
+    providers: [MessageService],
     template: `
         <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
             <div class="flex flex-col items-center justify-center">
@@ -36,7 +36,7 @@ import { MessageService } from 'primeng/api';
                             <p-password id="password1" [(ngModel)]="password" placeholder="Senha" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"></label>
                             <p-password id="password1" [(ngModel)]="confirmPassword" placeholder="Digite a senha novamente" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
-                            <p-button label="Cadastra" styleClass="w-full" (click)="registrar()" ></p-button>
+                            <p-button label="Cadastra" styleClass="w-full" (click)="registrar()"></p-button>
                         </div>
                     </div>
                 </div>
@@ -52,18 +52,25 @@ export class Register {
     confirmPassword: string = '';
     loading: boolean = false;
 
-    constructor(private createUserService: CreateUserService) {}
+    constructor(
+        private createUserService: CreateUserService,
+        private router: Router,
+        private messageService: MessageService
+    ) {}
 
     registrar(): void {
-        this.createUserService.register(this.nome,this.email,this.cpf,this.password).subscribe({
+        this.createUserService.register(this.nome, this.email, this.password, this.cpf).subscribe({
             next: (res) => {
-                console.log("Usuário cadastrado com sucesso!", res);
-                // depois do cadastro, pode redirecionar:
-                // this.router.navigate(['/login']);
+                this.messageService.add({
+                    severity: 'success', // sucesso
+                    summary: 'Sucesso', // título
+                    detail: 'Operação realizada com sucesso!' // mensagem
+                });
+                //this.router.navigate(['/login']);
             },
             error: (err) => {
-                console.error("Erro ao cadastrar usuário:", err);
+                console.error('Erro ao cadastrar usuário:', err);
             }
         });
-      }
     }
+}
