@@ -10,14 +10,11 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
 import { CreateUserService } from '@/core/service/create-user.service';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { AppConfigurator } from '@/layout/component/app.configurator';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, MessageModule, ToastModule, AppConfigurator, IconField, InputIcon],
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, MessageModule, ToastModule],
     template: `
         <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
             <div class="flex flex-col items-center justify-center">
@@ -28,13 +25,15 @@ import { InputIcon } from 'primeng/inputicon';
                         </div>
                         <div>
                             <label for="nome1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Nome</label>
-                            <input pInputText id="nome1" type="text" placeholder="Nome" class="w-full md:w-120 mb-8" [(ngModel)]="nome" />
+                            <input pInputText id="nome1" type="text" placeholder="Nome" class="w-full md:w-120 mb-2" [(ngModel)]="nome" />
                             <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
-                            <input pInputText id="email1" type="text" placeholder="Email" class="w-full md:w-120 mb-8" [(ngModel)]="email" />
+                            <input pInputText id="email1" type="text" placeholder="Email" class="w-full md:w-120 mb-2" [(ngModel)]="email" />
                             <label for="cpf1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Cpf</label>
-                            <input pInputText id="cpf1" type="text" placeholder="cpf" class="w-full md:w-120 mb-8" [(ngModel)]="cpf" />
+                            <input pInputText id="cpf1" type="text" placeholder="cpf" class="w-full md:w-120 mb-2" [(ngModel)]="cpf" />
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Senha</label>
                             <p-password id="password1" [(ngModel)]="password" placeholder="Senha" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
+                            <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"></label>
+                            <p-password id="password1" [(ngModel)]="password" placeholder="Digite a senha novamente" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
                             <p-button label="Cadastra" styleClass="w-full" routerLink="/"></p-button>
                         </div>
                     </div>
@@ -50,5 +49,7 @@ export class Register {
     password: string = '';
 
     constructor( 
-    private createUserService: CreateUserService) { }
+    private createUserService: CreateUserService) {}
+
+    
 }
