@@ -14,6 +14,6 @@ export class CreateUserService {
 
     register(nome: string, email: string, senha: string, cpf: string): Observable<User> {
         const body = { nome, email, senha, cpf };
-        return this.http.post<User>(`${this.API_URL}/api/usuario`,body);
+        return this.http.post<User>(`${this.API_URL}/api/usuarios`,body);
     }
 }
