@@ -10,13 +10,15 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
 import { CreateUserService } from '@/core/service/create-user.service';
 import { MessageService } from 'primeng/api';
 import { TokenService } from '@/core/service/token.service';
+import { Toast } from "primeng/toast";
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule],
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, Toast],
     providers: [MessageService],
     template: `
+    <p-toast position="bottom-right"></p-toast>
      <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
     <div class="flex flex-col items-center justify-center">
         <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
@@ -68,7 +70,8 @@ export class Login {
     constructor(
         private createUserService: CreateUserService,
         private messageService: MessageService,
-        private tokenService: TokenService
+        private tokenService: TokenService,
+        private router: Router
     ) {}
 
     login(form: any): void {
@@ -76,14 +79,15 @@ export class Login {
             this.loading = true;
             this.createUserService.login(this.email, this.password).subscribe(
                 (res:any) => {
-                    console.log('resposta de retorno',res);
                     this.tokenService.save(res.dados.token);
+                    console.log('éntrou')
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Sucesso',
                         detail: 'Login realizado com sucesso'
                     });
                     form.resetForm();
+                    this.router.navigate(['/dashboard'])
                     this.loading = false;
                 },
                 (err) => {
@@ -91,7 +95,7 @@ export class Login {
                     const mensagem = err.error?.mensagem || 'Erro inesperado.';
                     this.messageService.add({
                         severity: 'error',
-                        summary: 'Erro ao Logar',
+                        summary: 'Erro ao Entrar',
                         detail: mensagem
                     });
                 }

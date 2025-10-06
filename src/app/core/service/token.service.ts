@@ -23,15 +23,16 @@ export class TokenService {
     return localStorage.getItem(StorageKeys.TOKEN) ?? '';
   }
 
-  private decode(): any {
-    const token = this.get();
-    if (!token) return null;
-    try {
-      return jwtDecode(token);
-    } catch {
-      return null;
+  decode(): any {
+        const token = this.get();
+        if (!token) return null;
+
+        try {
+            return jwtDecode(token);
+        } catch (e) {
+            return null;
+        }
     }
-  }
 
   getSubject(): string {
     return this.decode()?.sub ?? '';
@@ -60,8 +61,8 @@ export class TokenService {
     return this.getUserRoles().includes(role);
   }
 
-  hasStock(): boolean {
-    return this.hasRole('ROLE_EST');
+  hasDash(): boolean {
+    return this.hasRole('ROLE_DASH');
   }
 
   hasService(): boolean {
