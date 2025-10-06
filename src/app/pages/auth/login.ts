@@ -48,7 +48,7 @@ import { TokenService } from '@/core/service/token.service';
                     </form>
 
                     <div class="flex items-center mt-8 mb-8 gap-4 justify-end">
-                        <label>Ainda não tem conta?</label>
+                        <label>Ainda nï¿½o tem conta?</label>
                         <p-button label="Cadastre-se" styleClass="w-full" routerLink="/auth/register"></p-button>
                     </div>
                 </div>
@@ -75,8 +75,9 @@ export class Login {
         if (form.valid) {
             this.loading = true;
             this.createUserService.login(this.email, this.password).subscribe(
-                (res) => {
-                    this.tokenService.save(res);
+                (res:any) => {
+                    console.log('resposta de retorno',res);
+                    this.tokenService.save(res.dados.token);
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Sucesso',

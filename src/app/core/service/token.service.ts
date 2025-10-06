@@ -10,6 +10,7 @@ enum StorageKeys {
 })
 export class TokenService {
   save(token: string | { access_token: string }) {
+    console.log('token recebido ', token)
     const value = typeof token === 'string' ? token : token.access_token;
     localStorage.setItem(StorageKeys.TOKEN, value);
   }
