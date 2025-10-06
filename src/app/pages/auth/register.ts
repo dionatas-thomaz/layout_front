@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
         <p-toast position="bottom-right"></p-toast>
         <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
             <div class="flex flex-col items-center justify-center w-full">
-                <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)" class="w-4/5">
+                <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)" class="mb:w-4/5">
                     <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
                         <div class="text-center mb-8">
                             <div class="text-surface-900 dark:text-surface-0 text-4xl font-medium mb-4">Cadastar</div>
@@ -36,7 +36,7 @@ import { MessageService } from 'primeng/api';
                             <p-password id="password1" [(ngModel)]="password" placeholder="Senha" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"></label>
                             <p-password id="password1" [(ngModel)]="confirmPassword" placeholder="Digite a senha novamente" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
-                            <p-button type="submit" label="Cadastra" styleClass="w-full" (click)="registrar() " [loading]="loading"></p-button>
+                            <p-button type="submit" label="Cadastra" styleClass="w-full" (click)="registrar()" [loading]="loading"></p-button>
                         </div>
                     </div>
                 </div>
@@ -67,16 +67,15 @@ export class Register {
                     summary: 'Sucesso',
                     detail: 'Operação realizada com sucesso!'
                 });
-                setTimeout(() => {
-                    this.router.navigate(['/auth/login']);
-                }, 1000);
+                setTimeout(() => this.router.navigate(['/auth/login']), 1000);
             },
             error: (err) => {
                 this.loading = false;
+                const mensagem = err.error?.mensagem || 'Erro inesperado.';
                 this.messageService.add({
-                    severity: 'err',
-                    summary: 'Falha',
-                    detail: 'Falha ao realizar o cadastro!'
+                    severity: 'error',
+                    summary: `Erro ao cadastrar`,
+                    detail: mensagem
                 });
             }
         });
