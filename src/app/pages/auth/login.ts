@@ -80,14 +80,15 @@ export class Login {
             this.createUserService.login(this.email, this.password).subscribe(
                 (res:any) => {
                     this.tokenService.save(res.dados.token);
-                    console.log('éntrou')
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Sucesso',
                         detail: 'Login realizado com sucesso'
                     });
                     form.resetForm();
+                    console.log('antes de redirecionar')
                     this.router.navigate(['/dashboard'])
+                    console.log('depois de redirecionar')
                     this.loading = false;
                 },
                 (err) => {
